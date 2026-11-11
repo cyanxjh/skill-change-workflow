@@ -1,0 +1,35 @@
+# 不想被提交的东西 / Things we don't want committed
+
+# 操作系统与编辑器
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+
+# 编辑器与 IDE
+.idea/
+.vscode/
+*.sublime-workspace
+
+# 个人环境与临时文件
+.env
+.env.*
+!.env.example
+*.log
+tmp/
+temp/
+scratch/
+
+# 依赖与构建产物（本件不含，但防止将来加脚本时误提交）
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+dist/
+build/
+
+# 本地个人配置：不同人的 agent 目录、路径、密钥各不相同
+local/
+*.local.*
+config.local.*
