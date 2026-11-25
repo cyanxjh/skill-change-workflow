@@ -24,6 +24,18 @@
 
 这三种都是**静默失败**：不报错、不中断，几周后才发现。这个 skill 就是防这三件事的。
 
+### 一张图看懂三层通道（与防覆盖边界）
+
+```mermaid
+flowchart LR
+  U["① 上游仓<br/>（只读，永不直接改）"] -->|"git fetch + 算领先/落后"| L["② 本地克隆<br/>（git 工作树 ≠ 已生效）"]
+  L -->|"先读改动账本 → 人工裁决"| I["③ 已装副本<br/>（Agent 实际加载目录）"]
+  P["改动账本<br/>（记录全部本地改造）"] -.->|"覆盖前必读"| I
+  PUB["脱敏发布副本<br/>（面向外部仓库）"] -.->|"严禁反向覆盖本机原件"| I
+```
+
+> **v1.1.0 路径区分**：需长期跟进上游的 skill 库走完整三层；一次性使用的外部单件 skill 在人点名确认后可直接下载检查并装入已装目录，避免堆积无用克隆与 Fork。
+
 ### 适不适合你
 
 | 适合 | 不适合 |
@@ -116,6 +128,8 @@ Three silent failures:
 3. You install a **sanitised public copy** back into your own machine, and your local copy loses its real paths and internal references.
 
 This skill is a checklist for those three.
+
+> **v1.1.0 path distinction**: Use the full 3-layer workflow for skill libraries you track long-term; for one-off standalone skills from external repos, install directly after human approval and safety checks instead of accumulating unused local clones or forks.
 
 ### Is it for you?
 
